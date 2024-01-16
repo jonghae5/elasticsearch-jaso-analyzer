@@ -1,9 +1,12 @@
 package org.elasticsearch.plugin.analysis;
 
 import org.elasticsearch.index.analysis.JasoTokenizerFactory;
+import org.elasticsearch.index.analysis.TokenizerFactory;
 import org.elasticsearch.index.analysis.*;
 import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.plugins.Plugin;
+import org.elasticsearch.indices.analysis.AnalysisModule.AnalysisProvider;
+
 
 import java.util.Map;
 
@@ -22,12 +25,12 @@ import org.apache.lucene.analysis.Analyzer;
 public class JasoAnalysisPlugin extends Plugin implements AnalysisPlugin {
 
     @Override
-    public Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> getTokenizers() {
+    public Map<String, AnalysisProvider<TokenizerFactory>> getTokenizers() {
         return singletonMap("jaso_tokenizer", JasoTokenizerFactory::new);
     }
 
     @Override
-    public Map<String, AnalysisModule.AnalysisProvider<AnalyzerProvider<? extends Analyzer>>> getAnalyzers() {
+    public Map<String, AnalysisProvider<AnalyzerProvider<? extends Analyzer>>> getAnalyzers() {
         return singletonMap("jaso_analyzer", JasoAnalyzerProvider::new);
     }
 }
